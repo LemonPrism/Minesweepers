@@ -10,21 +10,22 @@ public class minesweepers {
         int mines = 10;
 
         int[][] grid = createGrid(rows, cols, mines);
-   
 
         boolean[][] revealed = new boolean[rows][cols];
-
         Scanner sc = new Scanner(System.in);
-        boolean gameOver = false;
+        boolean gameOver = true;
 
-        while (!gameOver) {
+        while (gameOver==false) {
 
             drawField(grid, revealed);
 
-            System.out.print("Row: ");
-            int r = sc.nextInt();
-            System.out.print("Col: ");
-            int c = sc.nextInt();
+            System.out.print("Enter the row and col that you want to reveal (row,col):");
+
+            String coor = sc.next();
+
+            int r = Integer.parseInt(coor.substring(0,1));
+
+            int c =Integer.parseInt(coor.substring(2,3));
 
             if (r < 0 || r >= rows || c < 0 || c >= cols) {
                 System.out.println("Invalid");
@@ -51,6 +52,7 @@ public class minesweepers {
         while (placed < mines) {
             int r = rand.nextInt(n);
             int c = rand.nextInt(m);
+            
 
             if (grid[r][c] != -1) {
                 grid[r][c] = -1;
@@ -60,7 +62,6 @@ public class minesweepers {
         return grid;
     }
 
-    
 
     public static void drawField(int[][] grid, boolean[][] revealed) {
         for (int r = 0; r < grid.length; r++) {
@@ -70,6 +71,7 @@ public class minesweepers {
                         System.out.print(" B");
                     } else {
                         System.out.print(" " + grid[r][c]);
+                        
                     }
                 } else {
                     System.out.print(" ?");
@@ -78,7 +80,52 @@ public class minesweepers {
             System.out.println();
         }
     }
+    /*
+    
+    
+    public static void calcDist( int r, int c){
+        
+        if (grid [r][c-1] == "B" ){
+            
+            grid [r][c-1] = 1; 
+            
+            
+              
+        }else if ( grid [r] [c+ 1] == "B"){
+            
+            grid [r] [c+ 1] = 1;
+            
+        }else if ( grid [r-1] [c] == "B" ) {
+            
+            grid [r-1] [c] = 1; 
+        }else {
+            grid [r+1] [c] = 1; 
+        }
+        
+        
+        
+    }
+    
+    /*
 
+    public static void reveal ( int r, int c){
+
+       // reveal [r][c] = true; 
+
+        if ( drawField [r][c] == 0 ){
+            reveal (r , c-1); 
+            reveal (r , c+1); 
+            reveal (r-1, c); 
+            reveal (r+1 , c); 
+
+            
+        }
+        
+    }
+    
+    */
+    
+    
     public static boolean[][] revealAll(int r, int c) {
         boolean[][] all = new boolean[r][c];
         for (int i = 0; i < r; i++) {
